@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'djangosaml2'
+    'djangosaml2',
 ]
 
 MIDDLEWARE = [
@@ -125,7 +125,8 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'djangosaml2.backends.Saml2Backend',
+    # 'djangosaml2.backends.Saml2Backend',
+    'mysite.cust_backend.CustomSaml2Backend',
 )
 LOGIN_URL = '/saml2/login/'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
