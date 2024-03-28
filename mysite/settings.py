@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'djangosaml2'
 ]
 
 MIDDLEWARE = [
@@ -47,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'djangosaml2.middleware.SamlSessionMiddleware'
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -121,3 +123,36 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'djangosaml2.backends.Saml2Backend',
+)
+LOGIN_URL = '/saml2/login/'
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+from saml2 import BINDING_HTTP_POST
+SAML_CONFIG = {
+    'xmlsec_binary': '/usr/bin/xmlsec1',
+    'entityid': 'http://localhost:8000/saml/metadata/',
+    # 'attribute_map_dir': '/',
+    'service': {
+        'sp': {
+            'name': 'YOUR_APP_NAME',
+            'endpoints': {
+                'assertion_consumer_service': [
+                    ('http://localhost:8000/saml/acs/', BINDING_HTTP_POST),
+                ],
+            },
+            'allow_unsolicited': True,
+            'authn_requests_signed': False,
+            'logout_requests_signed': True,
+            'want_assertions_signed': True,
+            'want_assertions_encrypted': False,
+            'want_response_signed': False,
+            'want_response_signed_assertion_required': False,
+        },
+    },
+    'metadata': {
+        'local': ['auth0_com-metadata.xml'],
+    },
+}
