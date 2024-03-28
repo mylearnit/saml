@@ -156,5 +156,6 @@ SAML_CONFIG = {
     'metadata': {
         'local': [BASE_DIR / 'auth0_com-metadata.xml'],
     },
+    'cert_file': [BASE_DIR / 'public.pem'],  # public part
 }
 
