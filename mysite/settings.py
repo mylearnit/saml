@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'djangosaml2',
+    'django_saml2_auth',
 ]
 
 MIDDLEWARE = [
@@ -159,3 +160,7 @@ SAML_CONFIG = {
     'cert_file': [BASE_DIR / 'public.pem'],  # public part
 }
 
+
+SAML2_AUTH = {
+    'METADATA_LOCAL_FILE_PATH': BASE_DIR / 'auth0_com-metadata.xml'
+}

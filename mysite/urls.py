@@ -20,4 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('saml2/', include('djangosaml2.urls')),
+    path('saml3/', include('django_saml2_auth.urls')),
 ]
