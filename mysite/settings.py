@@ -162,5 +162,12 @@ SAML_CONFIG = {
 
 
 SAML2_AUTH = {
-    'METADATA_LOCAL_FILE_PATH': BASE_DIR / 'auth0_com-metadata.xml'
+    'METADATA_LOCAL_FILE_PATH': BASE_DIR / 'auth0_com-metadata.xml',
+    'ENTITY_ID': 'https://saml.isminspire.com/saml3/metadata/',
+    'ATTRIBUTES_MAP': {  # Change Email/UserName/FirstName/LastName to corresponding SAML2 userprofile attributes.
+        'email': 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress',
+        'username': 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier',
+        'first_name': 'http://schemas.auth0.com/nickname',
+        'last_name': 'http://schemas.auth0.com/nickname',
+    },
 }
