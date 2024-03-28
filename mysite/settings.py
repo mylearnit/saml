@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-%sa9wh_y9d%qru^4o73(9iwmrf1es5cw-^r)gicpz$5p+66fhx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -133,14 +133,14 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 from saml2 import BINDING_HTTP_POST
 SAML_CONFIG = {
     'xmlsec_binary': '/usr/bin/xmlsec1',
-    'entityid': 'http://localhost:8000/saml/metadata/',
+    'entityid': 'https://saml.isminspire.com/saml2/metadata/',
     # 'attribute_map_dir': '/',
     'service': {
         'sp': {
             'name': 'YOUR_APP_NAME',
             'endpoints': {
                 'assertion_consumer_service': [
-                    ('http://localhost:8000/saml/acs/', BINDING_HTTP_POST),
+                    ('https://saml.isminspire.com/saml2/acs/', BINDING_HTTP_POST),
                 ],
             },
             'allow_unsolicited': True,
@@ -153,6 +153,7 @@ SAML_CONFIG = {
         },
     },
     'metadata': {
-        'local': ['auth0_com-metadata.xml'],
+        'local': [BASE_DIR / 'auth0_com-metadata.xml'],
     },
 }
+
